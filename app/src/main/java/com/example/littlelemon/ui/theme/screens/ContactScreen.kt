@@ -7,13 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,17 +15,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.littlelemon.navigation.Locations
+import com.example.littlelemon.R
+import com.example.littlelemon.components.FilledButton
+import com.example.littlelemon.components.OutlinedTextFieldCopy
+import com.example.littlelemon.components.TextCopy
 
 @Composable
 fun ContactScreen(
-    modifier: Modifier,
-    navController: NavHostController
+    modifier: Modifier
 ) {
     var emailOrPassword by rememberSaveable {
         mutableStateOf("")
@@ -46,68 +40,52 @@ fun ContactScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Enter your name in your real life",
+        // Name field header
+        TextCopy(
             modifier = Modifier
-                .padding(vertical = 10.dp).align(alignment = Alignment.Start),
+                .padding(vertical = 10.dp)
+                .align(alignment = Alignment.Start),
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            text = stringResource(R.string.enter_your_name_in_your_real_life)
         )
 
-        OutlinedTextField(
-            value = emailOrPassword,
-            onValueChange = {emailOrPassword = it},
-            shape = RoundedCornerShape(10.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                disabledContainerColor = MaterialTheme.colorScheme.background,
-                focusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-                unfocusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
-            ),
-            singleLine = true,
-            label = {
-                Text(
-                    text = "Mobile number or email",
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-                )
-            },
+        // Contact information field
+        OutlinedTextFieldCopy(
+            onValueChange = { emailOrPassword = it },
+            valueUpdate = emailOrPassword,
+            shape = 10.dp,
+            labelText = "Mobile number or email",
             modifier = Modifier
                 .padding(bottom = 10.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+        )
 
-            )
-
-        Button(
+        // Sign Up Button
+        FilledButton(
             onClick = { /*TODO*/ },
+            text = stringResource(R.string.signup),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(44.dp)
-        ) {
-            Text(text = "SignUp")
-        }
+        )
 
-        Text(
-            text = "Use mobile number instead",
-            modifier = Modifier
-                .padding(10.dp)
-                .alpha(0.8f)
-                .align(alignment = Alignment.CenterHorizontally),
-            fontWeight = FontWeight.Light,
-            fontSize = 15.sp
+        // Switch mobile or email
+        TextCopy(
+            modifier = Modifier.padding(10.dp).alpha(0.8f).align(alignment = Alignment.CenterHorizontally),
+            fontSize = 10.sp,
+            text = stringResource(R.string.use_mobile_number_instead)
         )
 
         Spacer(modifier = Modifier.height(450.dp))
 
-
-        Text(
-            text = "Little Lemon",
+        // Bottom Logo Text
+        TextCopy(
             modifier = Modifier
                 .padding(10.dp)
-                .alpha(0.8f)
-                .align(alignment = Alignment.CenterHorizontally),
-            fontWeight = FontWeight.Light,
+                .alpha(0.8f),
             fontSize = 15.sp,
+            text = stringResource(R.string.little_lemon)
         )
     }
 }

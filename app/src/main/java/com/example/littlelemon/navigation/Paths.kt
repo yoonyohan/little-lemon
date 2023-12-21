@@ -31,7 +31,7 @@ fun Paths(
         }
 
         this.composable(route = Locations.ContactScreen.name) {
-            ContactScreen(modifier = Modifier, navController = navigation)
+            ContactScreen(modifier = Modifier)
         }
     }
 }
